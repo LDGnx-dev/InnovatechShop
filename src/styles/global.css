@@ -1,0 +1,104 @@
+:root {
+	--primary: #a855f7; /* Púrpura principal */
+	--secondary: #7e22ce;
+	--bg-dark: #0d1117;
+	--glass-bg: rgba(255, 255, 255, 0.03);
+	--glass-border: rgba(255, 255, 255, 0.1);
+	--text-main: #f0f6fc;
+}
+
+[data-theme="light"] {
+	--bg-dark: #f8fafc;
+	--glass-bg: rgba(0, 0, 0, 0.03);
+	--glass-border: rgba(0, 0, 0, 0.1);
+	--text-main: #1e293b;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Inter', sans-serif;
+	background-color: var(--bg-dark);
+	color: var(--text-main);
+	min-height: 100vh;
+	overflow-x: hidden;
+	transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+#bg-canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	background-size: cover;
+	background-position: center;
+	opacity: 0.4;
+	filter: blur(2px);
+}
+
+/* Efecto Glassmorphism */
+.glass {
+	background: var(--glass-bg);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid var(--glass-border);
+	border-radius: 16px;
+}
+
+.theme-toggle {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 100;
+	padding: 10px;
+	border-radius: 50%;
+	border: 1px solid var(--glass-border);
+	background: var(--glass-bg);
+	cursor: pointer;
+	font-size: 1.2rem;
+}
+
+/* Añade esto a tu global.css */
+
+.theme-toggle {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+.theme-icon {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.4s ease;
+}
+
+/* Lógica de visibilidad de iconos */
+[data-theme="dark"] #sun-icon {
+    opacity: 0;
+    transform: rotate(45deg) scale(0.5);
+}
+
+[data-theme="light"] #moon-icon {
+    opacity: 0;
+    transform: rotate(-45deg) scale(0.5);
+}
+
+[data-theme="dark"] #moon-icon,
+[data-theme="light"] #sun-icon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}

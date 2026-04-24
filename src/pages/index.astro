@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+---
+
+<Layout title="Innovatech Shop | Gynx Engine">
+	<main>
+		<h1 class="hero-title">Innovatech <span class="text-gradient">Shop</span></h1>
+		<p class="subtitle">La tienda del futuro, hoy.</p>
+	</main>
+</Layout>
+
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+		text-align: center;
+	}
+	.hero-title {
+		font-size: 4rem;
+		font-weight: 800;
+	}
+	.text-gradient {
+		background: linear-gradient(to right, #a855f7, #ec4899);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.subtitle {
+		font-size: 1.5rem;
+		opacity: 0.8;
+	}
+</style>
