@@ -9,6 +9,9 @@ pnpm-debug.log*
 dist/
 .astro/
 
+eminent-*
+*-debug.log*
+
 .env
 .env.*
 !.env.example
