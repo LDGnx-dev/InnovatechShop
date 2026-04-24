@@ -1,35 +1,72 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/react/Navbar.jsx';
 import '../styles/global.css';
 ---
 
 <Layout title="Innovatech Shop | Gynx Engine">
+	<Navbar client:load />
+
 	<main>
-		<h1 class="hero-title">Innovatech <span class="text-gradient">Shop</span></h1>
-		<p class="subtitle">La tienda del futuro, hoy.</p>
+		<section id="hero" class="full-screen">
+			<div class="hero-content">
+				<h1 class="hero-title">INNOVA<span class="text-gradient">TECH</span></h1>
+				<p class="subtitle">Tecnología de vanguardia con la firma de Gynx.</p>
+				<a href="#productos" class="cta-button glass">Explorar Catálogo</a>
+			</div>
+		</section>
+
+		<section id="productos" class="full-screen">
+			<div class="container">
+				<h2 class="section-title">Productos Destacados</h2>
+				<div class="placeholder-grid">
+					<p>Consultando base de datos de Syscom...</p>
+				</div>
+			</div>
+		</section>
 	</main>
 </Layout>
 
 <style>
-	main {
+	.full-screen {
+		min-height: 100vh;
 		display: flex;
-		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		height: 100vh;
+		padding: 2rem;
+		scroll-snap-align: start;
+	}
+
+	.container {
+		width: 100%;
+		max-width: 1200px;
+	}
+
+	.section-title {
+		font-size: 2.5rem;
+		margin-bottom: 2rem;
 		text-align: center;
 	}
-	.hero-title {
-		font-size: 4rem;
-		font-weight: 800;
+
+	.cta-button {
+		margin-top: 2rem;
+		padding: 1rem 2.5rem;
+		display: inline-block;
+		text-decoration: none;
+		color: white;
+		font-weight: 600;
+		transition: 0.3s;
 	}
-	.text-gradient {
-		background: linear-gradient(to right, #a855f7, #ec4899);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
+
+	.cta-button:hover {
+		background: rgba(168, 85, 247, 0.2);
+		border-color: var(--primary);
 	}
-	.subtitle {
-		font-size: 1.5rem;
-		opacity: 0.8;
+
+	/* Opcional: Para que el scroll sea más fluido tipo Apple */
+	main {
+		scroll-snap-type: y proximity;
+		overflow-y: auto;
+		height: 100vh;
 	}
 </style>
