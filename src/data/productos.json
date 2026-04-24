@@ -1,4 +1,5 @@
-{
+[
+  {
     "sku": "HTTP-404",
     "nombre": "Gato Ninja (Not Found)",
     "precio": 404.00,
@@ -19,3 +20,4 @@
     "descripcion": "No hace café, pero te da 100/100 en Lighthouse.",
     "img_url": "https://http.cat/418.jpg"
   }
+]
