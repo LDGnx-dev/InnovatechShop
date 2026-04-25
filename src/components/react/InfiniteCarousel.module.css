@@ -20,22 +20,17 @@
     100% { transform: translate3d(-50%, 0, 0); }
 }
 
-/* Recuperamos la pausa al pasar el mouse */
-.viewport:hover .track {
-    animation-play-state: paused;
-}
 
 .itemWrapper {
     flex-shrink: 0;
     /* Ease-in-out para que el crecimiento sea suave */
-    transition: transform 0.5s ease-in-out, margin 0.5s ease-in-out;
-    will-change: transform, margin;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
     cursor: pointer;
 }
 
 /* Recuperamos el efecto de crecimiento y empuje */
 .itemWrapper:hover {
     transform: scale(1.2);
-    margin: 0 2.5rem;
     z-index: 50;
 }
