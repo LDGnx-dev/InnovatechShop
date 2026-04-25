@@ -36,3 +36,23 @@
 .card:hover .imageBox {
     transform: scale(1.05);
 }
+
+.imageBox {
+    width: 100%;
+    height: 150px; /* O el tamaño que prefieras */
+    border-radius: 12px;
+    overflow: hidden; /* Corta lo que sobre de la imagen */
+    background: rgba(0,0,0,0.2); /* Fondo de respaldo mientras carga */
+}
+
+.imageBox img {
+    width: 100%;
+    height: 100%;
+    /* Mantiene la proporción y recorta los bordes si es necesario */
+    object-fit: cover; 
+    
+    /* Opcional: Centra la parte importante de la imagen */
+    object-position: center; 
+    
+    display: block; /* Elimina espacios extraños debajo de la imagen */
+}
