@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import vercel from '@astrojs/vercel/serverless'; // Asegúrate de que termine en /serverless
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   // Esto es crucial para Vercel
