@@ -1,0 +1,30 @@
+.btn {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 45px;
+    height: 45px;
+    z-index: 2000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(8px);
+    transition: all 0.4s ease-in-out;
+}
+
+.btn:hover { border-color: var(--primary); transform: scale(1.05); }
+
+.icon {
+    color: var(--text-base);
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transition: all 0.4s ease;
+}
+
+.active { opacity: 1; transform: rotate(0) scale(1); }
+.inactive { opacity: 0; transform: rotate(45deg) scale(0.5); }

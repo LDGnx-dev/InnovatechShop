@@ -1,89 +1,31 @@
 :root {
-	--primary: #a855f7;
-	--bg-dark: #0d1117;
-	--text-main: #f0f6fc;
-	--glass-bg: rgba(255, 255, 255, 0.03);
-	--glass-border: rgba(255, 255, 255, 0.1);
+    --primary: #a855f7; /* Amethyst */
+    --bg-page: #0d1117;
+    --text-base: #f0f6fc;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="light"] {
-	--bg-dark: #f8fafc;
-	--text-main: #1e293b;
-	--glass-bg: rgba(0, 0, 0, 0.03);
+    --bg-page: #f8fafc;
+    --text-base: #1e293b;
+    --glass-bg: rgba(0, 0, 0, 0.03);
+    --glass-border: rgba(0, 0, 0, 0.1);
 }
 
-html { scroll-behavior: smooth; }
+html, body {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
 
 body {
-	font-family: 'Inter', sans-serif;
-	background-color: var(--bg-dark);
-	color: var(--text-main);
-	margin: 0;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-page);
+    color: var(--text-base);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-#bg-canvas {
-	position: fixed;
-	inset: 0;
-	z-index: -1;
-	background-size: cover;
-	opacity: 0.3;
-}
-
-/* NAVBAR LOGIC */
-.navbar {
-	position: fixed;
-	top: 0;
-	width: 100%;
-	padding: 1rem 2rem;
-	z-index: 1000;
-	display: flex;
-	justify-content: center;
-	transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
-}
-
-.navbar.hidden { transform: translateY(-100%); opacity: 0; }
-.navbar.visible { transform: translateY(0); opacity: 1; }
-
-.nav-container {
-	width: 100%;
-	max-width: 1100px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-/* BOTONES */
-.glass {
-	background: var(--glass-bg);
-	backdrop-filter: blur(12px);
-	border: 1px solid var(--glass-border);
-	border-radius: 12px;
-}
-
-.floating-btn {
-	position: fixed;
-	top: 2rem;
-	right: 2rem;
-	width: 50px;
-	height: 50px;
-	z-index: 2000;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: opacity 0.3s;
-}
-
-.nav-icon-btn {
-	background: none;
-	border: none;
-	color: inherit;
-	cursor: pointer;
-	margin-left: 1rem;
-}
-
-.theme-icon { width: 22px; height: 22px; position: absolute; transition: opacity 0.3s; }
-
-/* LOGICA ICONOS TEMAS */
-[data-theme="dark"] #sun-icon, [data-theme="dark"] #sun-f { opacity: 0; }
-[data-theme="light"] #moon-icon, [data-theme="light"] #moon-f { opacity: 0; }
+a { text-decoration: none; color: inherit; }

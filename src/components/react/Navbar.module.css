@@ -1,0 +1,104 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    
+    /* Fondo Glass */
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+
+    /* --- CAMBIO A EASE-IN-OUT --- */
+    /* Lo ponemos aquí para que funcione en AMBAS direcciones */
+    transition: transform 0.5s ease-in-out, opacity 0.4s ease-in-out;
+    
+    /* Estado inicial por defecto (Oculto) */
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* Cuando la clase 'visible' está presente */
+.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Cuando la clase 'hidden' está presente (Opcional, pero refuerza) */
+.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Estado cuando el usuario no ha scrolleado: Transparente */
+.transparent {
+    background: transparent;
+}
+
+/* Estado cuando el usuario baja: Se vuelve Glass */
+.scrolled {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0.8rem 2rem; /* Se hace un poco más delgada */
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: -0.5px;
+}
+
+.links {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.navLink {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.navLink:hover {
+    opacity: 1;
+    color: var(--primary);
+}
+
+/* Subrayado animado para el hover */
+.navLink::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.navLink:hover::after {
+    width: 100%;
+}

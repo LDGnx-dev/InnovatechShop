@@ -1,72 +1,98 @@
 ---
 import Layout from '../layouts/Layout.astro';
+// 1. CORRECCIÓN DE IMPORTS
 import Navbar from '../components/react/Navbar.jsx';
-import '../styles/global.css';
+import ThemeToggle from '../components/buttons/ThemeToggle.jsx';
+import InfiniteCarousel from '../components/react/InfiniteCarousel.jsx';
+
+// Datos simulados (después vendrán de MongoDB)
+const productos = [
+  { sku: "GNX-01", nombre: "Medusa Lite", precio: 299, img_url: "", descripcion: "Edición Amethyst" },
+  { sku: "GNX-02", nombre: "Gynx Core", precio: 599, img_url: "", descripcion: "Potencia pura" },
+  { sku: "GNX-03", nombre: "Nexus Hub", precio: 150, img_url: "https://http.cat/418.jpg", descripcion: "Conectividad total" },
+  { sku: "GNX-04", nombre: "Void Keyboard", precio: 180, img_url: "", descripcion: "Mecánico silencioso" },
+  { sku: "GNX-05", nombre: "Aura Mouse", precio: 85, img_url: "", descripcion: "Sensor óptico 20k" },
+  { sku: "GNX-06", nombre: "Zenith Monitor", precio: 899, img_url: "", descripcion: "4K OLED 240Hz" },
+  { sku: "HTTP-404", nombre: "Gato Ninja (Not Found)", precio: 404.00, descripcion: "El producto perfecto si no quieres encontrarlo nunca.", img_url: "https://http.cat/404.jpg" }
+];
 ---
 
-<Layout title="Innovatech Shop | Gynx Engine">
-	<Navbar client:load />
+<Layout title="Innovatech | Home">
+    <Navbar client:load />
+    <ThemeToggle client:load />
+    
+    <main class="snap-container">
+        <section id="home" class="snap-section hero">
+            <div class="hero-content">
+                <h1 class="main-title">
+                    INNOVA<span class="text-primary">TECH</span>
+                    <span class="text-gradient"> SHOP</span>
+                </h1>
+                <p class="tagline">Propulsado por Gynx Engine</p>
+            </div>
+        </section>
 
-	<main>
-		<section id="hero" class="full-screen">
-			<div class="hero-content">
-				<h1 class="hero-title">INNOVA<span class="text-gradient">TECH</span></h1>
-				<p class="subtitle">Tecnología de vanguardia con la firma de Gynx.</p>
-				<a href="#productos" class="cta-button glass">Explorar Catálogo</a>
-			</div>
-		</section>
-
-		<section id="productos" class="full-screen">
-			<div class="container">
-				<h2 class="section-title">Productos Destacados</h2>
-				<div class="placeholder-grid">
-					<p>Consultando base de datos de Syscom...</p>
-				</div>
-			</div>
-		</section>
-	</main>
+        <section id="store" class="snap-section store">
+            <h2 class="section-title">Tienda</h2>
+            <div><InfiniteCarousel client:load items={productos} /></div>
+            <div></div>
+        </section>
+        
+        <section id="contact" class="snap-section contact">
+            <h2 class="section-title">Contacto</h2>
+            <p class="subtitle">[Opciones de soporte y redes]</p>
+        </section>
+    </main>
 </Layout>
 
 <style>
-	.full-screen {
-		min-height: 100vh;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 2rem;
-		scroll-snap-align: start;
-	}
+    /* 3. SCROLL SNAP LOCAL (Solo afecta a esta página) */
+    .snap-container {
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+    }
 
-	.container {
-		width: 100%;
-		max-width: 1200px;
-	}
+    .snap-section {
+        height: 100vh;
+        width: 100%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
 
-	.section-title {
-		font-size: 2.5rem;
-		margin-bottom: 2rem;
-		text-align: center;
-	}
+    /* ESTILOS DE DISEÑO */
+    .main-title {
+        font-size: 4rem;
+        font-weight: 800;
+    }
 
-	.cta-button {
-		margin-top: 2rem;
-		padding: 1rem 2.5rem;
-		display: inline-block;
-		text-decoration: none;
-		color: white;
-		font-weight: 600;
-		transition: 0.3s;
-	}
+    .text-primary {
+        color: var(--primary);
+    }
 
-	.cta-button:hover {
-		background: rgba(168, 85, 247, 0.2);
-		border-color: var(--primary);
-	}
+    .text-gradient {
+        background: linear-gradient(to right, var(--primary), var(--text-base));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 
-	/* Opcional: Para que el scroll sea más fluido tipo Apple */
-	main {
-		scroll-snap-type: y proximity;
-		overflow-y: auto;
-		height: 100vh;
-	}
+    .tagline {
+        opacity: 0.6;
+    }
+
+    .section-title {
+        text-align: center;
+        padding-top: 5rem;
+    }
+
+    /* Colores de fondo suaves para diferenciar */
+    .store, .contact {
+        background: rgba(168, 85, 247, 0.05);
+    }
 </style>

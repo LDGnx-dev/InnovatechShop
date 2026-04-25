@@ -1,0 +1,41 @@
+.viewport {
+    position: relative;
+    width: 90%;
+    max-width: 1600px;
+    margin: 2rem auto;
+    overflow: hidden;
+    padding: 4rem 0; /* Espacio para que el escalado no se corte arriba/abajo */
+}
+
+.track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: scroll 55s linear infinite;
+    will-change: transform;
+}
+
+@keyframes scroll {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Recuperamos la pausa al pasar el mouse */
+.viewport:hover .track {
+    animation-play-state: paused;
+}
+
+.itemWrapper {
+    flex-shrink: 0;
+    /* Ease-in-out para que el crecimiento sea suave */
+    transition: transform 0.5s ease-in-out, margin 0.5s ease-in-out;
+    will-change: transform, margin;
+    cursor: pointer;
+}
+
+/* Recuperamos el efecto de crecimiento y empuje */
+.itemWrapper:hover {
+    transform: scale(1.2);
+    margin: 0 2.5rem;
+    z-index: 50;
+}
