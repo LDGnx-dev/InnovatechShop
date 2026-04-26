@@ -5,14 +5,14 @@ export default function ThemeToggle() {
   const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
-    const current = document.body.getAttribute('data-theme') || 'dark';
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
     setTheme(current);
   }, []);
 
   const toggle = () => {
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
-    document.body.setAttribute('data-theme', next);
+    document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
   };
 
