@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
+import auth from 'auth-astro';
 
 export default defineConfig({
-  // Esto es crucial para Vercel
-  output: 'server', 
+  output: 'server',
   adapter: vercel(),
-  integrations: [react()],
+  integrations: [react(),auth()],
 });
