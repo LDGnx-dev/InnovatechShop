@@ -1,5 +1,5 @@
 // src/middleware.ts
-/*
+
 import { defineMiddleware } from "astro:middleware";
 import { getSession } from "auth-astro/server";
 
@@ -20,4 +20,3 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // Si no es la ruta /admin, o si sí hay sesión, lo dejamos pasar normalmente
   return next();
 });
-*/
