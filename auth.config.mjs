@@ -2,43 +2,45 @@
 import GitHub from '@auth/core/providers/github';
 import Google from '@auth/core/providers/google';
 import { MongoClient } from 'mongodb';
+import { defineConfig } from 'auth-astro';
 
-export default {
+export default defineConfig({
+  trustHost: true, 
+  
+  secret: import.meta.env.AUTH_SECRET || process.env.AUTH_SECRET,
+
   providers: [
     GitHub({
-      clientId: import.meta.env.GITHUB_CLIENT_ID,
-      clientSecret: import.meta.env.GITHUB_CLIENT_SECRET,
+      clientId: import.meta.env.GITHUB_CLIENT_ID || process.env.GITHUB_CLIENT_ID,
+      clientSecret: import.meta.env.GITHUB_CLIENT_SECRET || process.env.GITHUB_CLIENT_SECRET,
     }),
     Google({
-      clientId: import.meta.env.GOOGLE_CLIENT_ID,
-      clientSecret: import.meta.env.GOOGLE_CLIENT_SECRET,
+      clientId: import.meta.env.GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID,
+      clientSecret: import.meta.env.GOOGLE_CLIENT_SECRET || process.env.GOOGLE_CLIENT_SECRET,
     })
   ],
   callbacks: {
-    // Esta función se ejecuta JUSTO DESPUÉS de que GitHub/Google dicen "Sí, el correo es real" 
-    // pero ANTES de crear la sesión en tu página.
     async signIn({ user }) {
-      const client = new MongoClient(import.meta.env.MONGODB_URI);
+      // Usamos el fallback a process.env por si Vercel compila esto como Node puro
+      const uri = import.meta.env.MONGODB_URI || process.env.MONGODB_URI;
+      const client = new MongoClient(uri);
       
       try {
         await client.connect();
-        const db = client.db(); // Se conecta a "InnovatechDB" gracias a tu URI
-        
-        // Buscamos si el email de GitHub/Google existe en tu colección
+        const db = client.db(); 
         const existingUser = await db.collection("users").findOne({ email: user.email });
         
         if (existingUser) {
-          return true; // ¡Existe! Lo dejamos entrar.
+          return true; 
         } else {
-          // No existe en MongoDB. Le negamos el acceso y lo mandamos al login con un error.
-          return "/login?error=AccessDenied"; 
+          return "/?access=denied"; 
         }
       } catch (error) {
-        console.error("Error conectando a MongoDB en el Login:", error);
-        return false; // Ante cualquier error de conexión, bloqueamos el acceso por seguridad.
+        console.error("Error conectando a MongoDB:", error);
+        return false; 
       } finally {
-        await client.close(); // Cerramos la conexión para no saturar el clúster.
+        await client.close(); 
       }
     }
   }
-};
+});
