@@ -259,12 +259,18 @@ import Layout from '../layouts/Layout.astro';
 
 
 <script>
-  const { signIn } = await import("auth-astro/client");
+  import { signIn } from "auth-astro/client";
 
-  document.getElementById('btn-github')?.addEventListener('click', () => {
-    await signIn('github', { callbackUrl: '/admin' });
+  document.getElementById('btn-github')?.addEventListener('click', async () => {
+    try {
+      await signIn('github', { callbackUrl: '/admin' });
+    } catch (error) {
+      console.error("Error al iniciar sesión con GitHub:", error);
+    }
   });
-//  document.getElementById('btn-google')?.addEventListener('click', () => {
-//    await signIn('google', { callbackUrl: '/admin' });
-//  });
+
+  /* document.getElementById('btn-google')?.addEventListener('click', async () => {
+    await signIn('google', { callbackUrl: '/admin' });
+  }); 
+  */
 </script>
