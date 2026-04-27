@@ -1,4 +1,5 @@
 // src/middleware.ts
+/*
 import { defineMiddleware } from "astro:middleware";
 import { getSession } from "auth-astro/server";
 
@@ -12,10 +13,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     // 3. Si no hay sesión (o es un intruso), lo mandamos al Login de un plumazo
     if (!session) {
         // Antes: return context.redirect("/login");
-        return context.redirect("/?access=denied"); 
+        return context.redirect("/?access=denied");
     }
   }
 
   // Si no es la ruta /admin, o si sí hay sesión, lo dejamos pasar normalmente
   return next();
 });
+*/

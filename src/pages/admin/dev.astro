@@ -1,0 +1,16 @@
+---
+import AdminLayout from './AdminLayout.astro';
+// Lógica de protección (Middleware o Frontmatter)
+---
+<AdminLayout title="System Developer Panel">
+  <div class="danger-zone">
+    <h3>Herramientas de Bajo Nivel</h3>
+    <button class="btn-danger">Reiniciar Caché de DB</button>
+    <button class="btn-danger">Exportar Logs (.json)</button>
+  </div>
+</AdminLayout>
+
+<style>
+  .danger-zone { border: 1px solid #f43f5e; padding: 2rem; border-radius: 12px; background: rgba(244, 63, 94, 0.05); }
+  .btn-danger { background: #f43f5e; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; }
+</style>

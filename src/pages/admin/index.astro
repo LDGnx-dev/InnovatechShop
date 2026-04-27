@@ -1,121 +1,40 @@
 ---
 import AdminLayout from './AdminLayout.astro';
-// Aquí podrías verificar el rol de la sesión antes de renderizar
+// Simulamos datos de tu otra DB de negocios
+const metrics = [
+  { label: "Ventas Netas", value: "$12,450", trend: "+12%" },
+  { label: "Productos en Stock", value: "142", trend: "Estable" },
+  { label: "Usuarios Activos", value: "8", trend: "+2" }
+];
 ---
 
-<AdminLayout title="Panel Dev">
-  <header class="page-header">
-    <h1>System Status</h1>
-    <p>Bienvenido de vuelta, LDGnx.</p>
-  </header>
+<AdminLayout title="Dashboard de Negocio">
+  <div class="stats-grid">
+    {metrics.map(m => (
+      <div class="card">
+        <span class="label">{m.label}</span>
+        <div class="value">{m.value}</div>
+        <span class="trend">{m.trend}</span>
+      </div>
+    ))}
+  </div>
 
-  <section class="dev-terminal">
-    <div class="terminal-header">
-      <div class="dots"><span></span><span></span><span></span></div>
-      <span class="title">zsh — innovatech-core</span>
-    </div>
-    <div class="terminal-body" id="terminal-output">
-      <div class="line">LDGnx@innovatech:~$ system --check</div>
-      <div class="line success">Checking database connection... OK</div>
-      <div class="line success">Auth service... ACTIVE</div>
-      <div class="line">LDGnx@innovatech:~$ <span class="cursor">_</span></div>
-    </div>
-    <div class="terminal-input-area">
-      <span>➜</span>
-      <input type="text" id="command-input" placeholder="Escribe un comando (ping, status, clear)..." autofocus />
-    </div>
-  </section>
+  <div class="recent-activity">
+    <h3>Actividad Reciente</h3>
+    <p class="muted">Conectando con la base de datos de auditoría...</p>
+  </div>
 </AdminLayout>
 
 <style>
-  .dev-terminal {
-    background: #000;
-    border-radius: 12px;
-    border: 1px solid #333;
-    overflow: hidden;
-    font-family: 'Fira Code', 'Courier New', monospace;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+  .card { 
+    background: var(--panel-dark); padding: 1.5rem; border: 1px solid var(--border); 
+    border-radius: 12px; transition: transform 0.2s;
   }
-
-  .terminal-header {
-    background: #1a1a1a;
-    padding: 10px 15px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-
-  .dots { display: flex; gap: 6px; }
-  .dots span { width: 10px; height: 10px; border-radius: 50%; background: #333; }
-  .dots span:nth-child(1) { background: #ff5f56; }
-
-  .terminal-body {
-    padding: 20px;
-    height: 300px;
-    overflow-y: auto;
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-
-  .success { color: #4ade80; }
-  .line { margin-bottom: 5px; }
-
-  .terminal-input-area {
-    display: flex;
-    padding: 10px 20px;
-    background: #050505;
-    border-top: 1px solid #222;
-    align-items: center;
-    gap: 10px;
-  }
-
-  input {
-    background: transparent;
-    border: none;
-    color: var(--accent);
-    flex: 1;
-    outline: none;
-    font-family: inherit;
-  }
+  .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+  .label { color: var(--text-muted); font-size: 0.9rem; }
+  .value { font-size: 1.8rem; font-weight: bold; margin: 0.5rem 0; }
+  .trend { color: #10b981; font-size: 0.8rem; }
+  .recent-activity { margin-top: 3rem; background: var(--panel-dark); padding: 1.5rem; border-radius: 12px; }
+  .muted { color: var(--text-muted); }
 </style>
-
-<script>
-  const input = document.getElementById('command-input') as HTMLInputElement;
-  const output = document.getElementById('terminal-output');
-
-  input?.addEventListener('keypress', async (e) => {
-    if (e.key === 'Enter') {
-      const cmd = input.value.toLowerCase();
-      input.value = '';
-      
-      // Crear nueva línea de comando
-      const cmdLine = document.createElement('div');
-      cmdLine.className = 'line';
-      cmdLine.innerHTML = `LDGnx@innovatech:~$ ${cmd}`;
-      output?.appendChild(cmdLine);
-
-      if (cmd === 'ping') {
-        const res = await fetch('/api/dev/ping');
-        const data = await res.json();
-        const responseLine = document.createElement('div');
-        responseLine.className = 'line success';
-        responseLine.innerText = `[DB] Pong! ${data.message}`;
-        output?.appendChild(responseLine);
-      }
-      
-      if (cmd === 'clear') output!.innerHTML = '';
-
-      output!.scrollTop = output!.scrollHeight;
-
-      if (cmd.startsWith('useradd')) {
-        const [_, email, alias] = cmd.split(' '); 
-        const res = await fetch('/api/dev/useradd', {
-        method: 'POST',
-        body: JSON.stringify({ email, alias, name: alias })
-      });
-        const data = await res.json();
-      // ... imprimir data.message en la terminal
-      }
-    }
-  });
-</script>
