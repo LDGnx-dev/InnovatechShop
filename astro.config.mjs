@@ -4,7 +4,13 @@ import vercel from '@astrojs/vercel';
 import auth from 'auth-astro';
 
 export default defineConfig({
+  site: 'https://innovatech-shop.vercel.app',
   output: 'server',
   adapter: vercel(),
   integrations: [react(),auth()],
+  vite: {
+    optimizeDeps: {
+      disabled: true, 
+    },
+  }
 });
