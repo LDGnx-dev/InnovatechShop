@@ -11,7 +11,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
     
     // 3. Si no hay sesión (o es un intruso), lo mandamos al Login de un plumazo
     if (!session) {
-      return context.redirect("/");
+        // Antes: return context.redirect("/login");
+        return context.redirect("/?access=denied"); 
     }
   }
 
