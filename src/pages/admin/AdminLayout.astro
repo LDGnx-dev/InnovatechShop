@@ -1,0 +1,107 @@
+---
+// src/layouts/AdminLayout.astro
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Innovatech Admin</title>
+  </head>
+  <body>
+    <div class="admin-grid">
+      <aside class="sidebar">
+        <div class="logo">LDGnx<span>_Terminal</span></div>
+        <nav>
+          <a href="/admin" class="nav-item">Dashboard</a>
+          <a href="/admin/inventory" class="nav-item">Inventario</a>
+          <a href="/admin/users" class="nav-item">Usuarios</a>
+        </nav>
+        <div class="user-info">
+          <div class="status-dot"></div>
+          <span>Pixel [Dev]</span>
+        </div>
+      </aside>
+
+      <main class="content">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #09090b;
+    --panel: #111114;
+    --accent: #a855f7;
+    --text: #f8fafc;
+    --subtext: #94a3b8;
+  }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    font-family: 'Geist', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .admin-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+  }
+
+  /* Responsive para tu Oppo (Android) */
+  @media (max-width: 768px) {
+    .admin-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto; /* Contenido arriba, menú abajo */
+    }
+    
+    .sidebar {
+      order: 2;
+      height: 60px !important;
+      width: 100% !important;
+      flex-direction: row !important;
+      padding: 0 20px !important;
+      border-top: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .sidebar nav {
+      flex-direction: row !important;
+      gap: 15px;
+    }
+
+    .logo, .user-info { display: none; }
+  }
+
+  .sidebar {
+    background: var(--panel);
+    border-right: 1px solid rgba(168, 85, 247, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    gap: 40px;
+  }
+
+  .nav-item {
+    color: var(--subtext);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+
+  .nav-item:hover {
+    background: rgba(168, 85, 247, 0.1);
+    color: var(--accent);
+  }
+
+  .content { padding: 40px; }
+</style>

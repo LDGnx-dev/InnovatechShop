@@ -1,0 +1,9 @@
+---
+// src/pages/admin/inventory.astro
+const session = await getSession(Astro.request);
+const userRole = session?.user?.role; // Esto vendrá de tu callback de sesión
+
+if (userRole !== 'admin' && userRole !== 'dev') {
+  return Astro.redirect('/admin?error=unauthorized');
+}
+---
